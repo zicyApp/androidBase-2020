@@ -1,7 +1,8 @@
-package co.numeriq.articles
+package co.numeriq.articles.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import co.numeriq.articles.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
