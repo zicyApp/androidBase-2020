@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import co.numeriq.articles.R
 import co.numeriq.articles.databinding.ItemArticleBinding
 import co.numeriq.articles.ui.model.ArticleUI
 import com.bumptech.glide.Glide
 
-class ArticleRecyclerViewAdapter(
+class ArticlesAdapter(
     private var items: List<ArticleUI>?,
     private var listener: OnItemClickListener
-) : RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
@@ -44,9 +45,21 @@ class ArticleRecyclerViewAdapter(
             binding.article = article
             if (listener != null) {
                 binding.root.setOnClickListener { listener.onItemClick(layoutPosition) }
+                downloadImage(binding.root, article)
             }
 
             binding.executePendingBindings()
+        }
+
+        private fun downloadImage(root: View, article: ArticleUI?) {
+            (root.findViewById(R.id.imageView) as? ImageView)?.let { imageView ->
+                imageView.setImageDrawable(ContextCompat.getDrawable(binding.root.context, R.drawable.placeholder))
+                article?.imageUrl?.let { url ->
+                    Uri.parse(url)?.let { uri ->
+                        Glide.with(binding.root.context).load(uri).into(imageView)
+                    }
+                }
+            }
         }
     }
 

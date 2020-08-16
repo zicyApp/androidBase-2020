@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import co.numeriq.articles.di.apiModule
 import co.numeriq.articles.di.networkModule
 import co.numeriq.articles.di.repoModule
+import co.numeriq.articles.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -17,7 +18,7 @@ class CoreApplication : Application() {
         startKoin {
             printLogger() // Koin Logger
             androidContext(this@CoreApplication)
-            modules(listOf(apiModule, networkModule, repoModule))
+            modules(listOf(apiModule, viewModelModule, networkModule, repoModule))
         }
     }
 
