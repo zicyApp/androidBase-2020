@@ -3,7 +3,7 @@ package co.numeriq.articles.utils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
-class TestObserver<T> : Observer<T> {
+class CustomTestObserver<T> : Observer<T> {
 
     val observedValues = mutableListOf<T?>()
 
@@ -12,6 +12,6 @@ class TestObserver<T> : Observer<T> {
     }
 }
 
-fun <T> LiveData<T>.testObserver() = TestObserver<T>().also {
+fun <T> LiveData<T>.testObserver() = CustomTestObserver<T>().also {
     observeForever(it)
 }
