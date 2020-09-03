@@ -7,7 +7,6 @@ import co.numeriq.articles.base.RxViewModel
 import co.numeriq.articles.extensions.with
 import co.numeriq.articles.model.Article
 import co.numeriq.articles.model.repositories.ArticlesRepository
-import co.numeriq.articles.ui.model.ArticleUI
 import co.numeriq.articles.ui.viewmodel.state.*
 
 class MainViewModel(private val repo: ArticlesRepository) : RxViewModel() {
@@ -43,7 +42,7 @@ class MainViewModel(private val repo: ArticlesRepository) : RxViewModel() {
     private fun handlePostList(articles: List<Article>) {
         loader.postValue(false)
         posts.value = articles
-        _uiState.value = RetrievedArticleState(articles.map(articleDomainToUIMapper))
+        _uiState.value = RetrievedArticleState(listOf<String>())
     }
 
     private fun handleFailure(t: Throwable) {
@@ -52,15 +51,6 @@ class MainViewModel(private val repo: ArticlesRepository) : RxViewModel() {
             ErrorState(
                 t.message.toString()
             )
-    }
-
-    private val articleDomainToUIMapper: (Article) -> ArticleUI = { postDomain ->
-        ArticleUI(
-            postDomain.source?.name ?: "",
-            postDomain.urlToImage ?: "",
-            postDomain.title ?: "",
-            postDomain.description ?: ""
-        )
     }
 
     var isLoading = Transformations.map(loader) {

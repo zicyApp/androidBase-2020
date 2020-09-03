@@ -18,7 +18,7 @@ class CoreApplication : Application() {
         startKoin {
             printLogger() // Koin Logger
             androidContext(this@CoreApplication)
-            modules(listOf(apiModule, viewModelModule, networkModule, repoModule))
+            modules(listOf(apiModule, networkModule, repoModule, viewModelModule))
         }
     }
 
